@@ -28,18 +28,6 @@ def complexity(harmonics, cutoff_frequency, n, step = 10):
         curN = curN * step
     return N, t
 
-def auto_correlation(arr):
-    arr_half_size = int(len(arr) / 2)
-    arr_half = arr[0:arr_half_size]
-
-    res_x = [0] * arr_half_size
-    res_y = [0] * arr_half_size
-    for i in range(arr_half_size):
-        cur_half = arr[i:(i+arr_half_size)]
-        res_x[i] = i*2
-        res_y[i] = calc.correlation(arr_half, cur_half)
-    return res_x, res_y
-
 def cross_corelation(arr1, arr2):
     arr_half_size = int(len(arr1) / 2)
     arr1_half = arr1[0:arr_half_size]
@@ -52,3 +40,5 @@ def cross_corelation(arr1, arr2):
         res_y[i] = calc.correlation(arr1_half, cur_half)
     return res_x, res_y
     
+def auto_correlation(arr):
+    return cross_corelation(arr, arr)
