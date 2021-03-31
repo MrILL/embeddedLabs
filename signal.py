@@ -51,4 +51,15 @@ def cross_corelation(arr1, arr2):
         res_x[i] = i*2
         res_y[i] = calc.correlation(arr1_half, cur_half)
     return res_x, res_y
+
+def dft(sig):
+    N = len(sig)
+    res = [0] * N
+    for p in range(N):
+        for k in range(N):
+            expression = 2 * math.pi / N * p * k
+            w = complex(math.cos(expression), -math.sin(expression))
+            res[p] += w * sig[k]
+        res[p] = abs(res[p])
+    return res
     
