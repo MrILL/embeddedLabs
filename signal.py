@@ -62,4 +62,32 @@ def dft(sig):
             res[p] += w * sig[k]
         res[p] = abs(res[p])
     return res
-    
+
+def fft(sig):
+    n = len(sig)
+    if n == 1:
+        return sig
+
+    half_size = int(n / 2)
+    p_even = [0] * half_size
+    p_odd = [0] * half_size
+    for i in range(half_size):
+        p_even[i] = sig[i*2]
+        p_odd[i] = sig[i*2 + 1]
+
+    y_even = fft(p_even)
+    y_odd = fft(p_odd)
+
+    res = [0] * n
+    for i in range(half_size):
+        expression = 2.0 * math.pi * i / n
+        w = complex(math.cos(expression), math.sin(expression))
+        res[i] = y_even[i] + y_odd[i] * w
+        res[i + half_size] = y_even[i] - y_odd[i] * w
+
+    return res
+
+def real(sig):
+    for i in range(len(sig)):
+        sig[i] = abs(sig[i])
+    return sig
