@@ -91,3 +91,30 @@ def real(sig):
     for i in range(len(sig)):
         sig[i] = abs(sig[i])
     return sig
+
+def fft_vs_dft(harmonics, cutoff_frequency, n):
+    N_start = 2**6
+    N = N_start
+    lenght = int(math.log2(2**(13+1)/N_start))
+    res_y = [0] * lenght
+    res_x = [0] * lenght
+    fft_t = [0] * lenght
+    dft_t = [0] * lenght
+    for i in range(lenght):
+        sig = generate(harmonics, cutoff_frequency, N)
+
+        time_start = time.time()
+        fft(sig)
+        fft_time = time.time() - time_start
+
+        time_start = time.time()
+        dft(sig)
+        dft_time = time.time() - time_start
+
+        res_y[i] = fft_time / dft_time
+        res_x[i] = '2^' + str(5 + int(math.log2(N/N_start)))
+        fft_t[i] = fft_time
+        dft_t[i] = dft_time
+
+        N = N * 2
+    return (res_y, res_x, fft_t, dft_t)

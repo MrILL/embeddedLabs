@@ -8,19 +8,17 @@ N = 64
 
 sig = signal.generate(HARMONICS, CUTOFF_FREQUENCY, N)
 
-fig, ax = plt.subplots(3, 1)
+fig, ax = plt.subplots(2, 1)
 fig.tight_layout(rect=(0.03, 0, 1, 0.98))
 
-ax[0].plot(sig)
-ax[0].set_title('Signal')
+(fft_vs_dft, x_labels, fft_t, dft_t) = signal.fft_vs_dft(HARMONICS, CUTOFF_FREQUENCY, N)
+ax[0].plot(fft_vs_dft)
+ax[0].set_title('FFT time / DFT time')
 
-dft = signal.dft(sig)
-ax[1].plot(dft)
-ax[1].set_title('Spectrum')
+ax[1].plot(x_labels, fft_t, label="fft time")
+ax[1].plot(x_labels, dft_t, label="dft time")
+ax[1].legend()
+ax[1].set_title('Time Comparison')
 
-fft = signal.fft(sig)
-ax[2].plot(signal.real(fft))
-ax[2].set_title('Spectrum')
-
-fig.savefig('signal_and_spectrum.png')
+fig.savefig('fft_vs_dft.png')
 plt.show()
