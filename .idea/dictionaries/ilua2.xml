@@ -2,6 +2,8 @@
   <dictionary name="ilua2">
     <words>
       <w>ferma</w>
+      <w>iter</w>
+      <w>perceptron</w>
     </words>
   </dictionary>
 </component>

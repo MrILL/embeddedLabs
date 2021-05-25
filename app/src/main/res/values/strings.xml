@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MrILLs</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="perceptron_w1">W1: %1$s</string>
+    <string name="perceptron_w2">W2: %1$s</string>
+    <string name="perceptron_time">Time (ms): %1$s</string>
+    <string name="perceptron_iter">Iterations: %1$s</string>
 </resources>

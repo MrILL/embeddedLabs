@@ -1,35 +1,50 @@
-### Lab 3.1 Protocol
+### Lab 3.2 Protocol
 ```kotlin
-fun formatResult(num1: Long, num2: Long): String {
-    return "${num1.toString()}, ${num2.toString()}"
-}
+class PerceptronClass {
+    var p: Int = 4
+    var lRate: Double = 0.001
 
-fun fermaFactors(n: Long): String {
-    if(n <= 0) {
-        return n.toString()
+    var w1: Double = 0.0
+    var w2: Double = 0.0
+
+    private val bias: Int = 1
+
+    private fun yCalc(x: Double, y: Double): Double {
+        return this.w1 * x + this.w2 * y + this.bias
     }
 
-    if(n % 2 == 0L) {
-        return formatResult(n/2, n)
+    private fun deltaCalc(y: Double): Double {
+        return this.p.toDouble() - y
     }
 
-    var a: Long = ceil(sqrt(n.toDouble())).toLong()
-    if(a * a == n) {
-        return formatResult(a, a)
+    private fun wCalc(x: Double, y: Double, delta: Double) {
+        this.w1 += delta * x * this.lRate;
+        this.w2 += delta * y * this.lRate;
     }
 
-    var b: Long
-    while(true) {
-        val b1: Long = a * a - n
-        b = sqrt(b1.toDouble()).toLong()
-        if(b * b == b1) {
-            break
-        } else {
-            a += 1
+    data class PerceptronClassResult(val w1: Double, val w2: Double, val time: Long, val iter: Int)
+    fun learn(input: Array<Pair<Double, Double>>, maxIterations: Int, maxTime: Long): PerceptronClassResult{
+        var iterations: Int = 0
+
+        val startTime: Long = System.currentTimeMillis()
+        var currentTime: Long = System.currentTimeMillis()
+        val deadlineTime: Long = startTime + maxTime
+
+        while (maxIterations > iterations && currentTime < deadlineTime) {
+            input.forEach() lit@{ p ->
+                val y = this.yCalc(p.first, p.second)
+                val delta = this.deltaCalc(y)
+                this.wCalc(p.first, p.second, delta)
+            }
+
+            currentTime = System.currentTimeMillis()
+            iterations++
         }
+        currentTime = System.currentTimeMillis()
+        return PerceptronClassResult(this.w1, this.w2, currentTime - startTime, iterations)
     }
-    return formatResult(a - b, a + b)
 }
+
 ```
 
 ### Screenshots
@@ -38,3 +53,5 @@ fun fermaFactors(n: Long): String {
 ![](./example2.png)
 
 ![](./example3.png)
+
+![](./example4.png)
