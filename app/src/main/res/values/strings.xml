@@ -5,4 +5,5 @@
     <string name="perceptron_w2">W2: %1$s</string>
     <string name="perceptron_time">Time (ms): %1$s</string>
     <string name="perceptron_iter">Iterations: %1$s</string>
+    <string name="geneticAlgorithm_equation">a*%1$s + b*%2$s + c*%3$s + d*%4$s = y</string>
 </resources>
