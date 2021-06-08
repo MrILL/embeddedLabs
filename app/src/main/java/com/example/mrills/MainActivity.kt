@@ -13,21 +13,26 @@ fun formatResult(num1: Long, num2: Long): String {
     return "${num1.toString()}, ${num2.toString()}"
 }
 
-fun fermaFactors(n: Long): String {
+fun formatResultIter(i: Long): String {
+    return "iterations: ${i.toString()}"
+}
+
+fun fermaFactors(n: Long): Array<String> {
     if(n <= 0) {
-        return n.toString()
+        return arrayOf(n.toString(), formatResultIter(0))
     }
 
     if(n % 2 == 0L) {
-        return formatResult(n/2, n)
+        return arrayOf(formatResult(n/2, n), formatResultIter(0))
     }
 
     var a: Long = ceil(sqrt(n.toDouble())).toLong()
     if(a * a == n) {
-        return formatResult(a, a)
+        return arrayOf(formatResult(a, a), formatResultIter(0))
     }
 
     var b: Long
+    var i: Long = 0
     while(true) {
         val b1: Long = a * a - n
         b = sqrt(b1.toDouble()).toLong()
@@ -36,8 +41,9 @@ fun fermaFactors(n: Long): String {
         } else {
             a += 1
         }
+        i++
     }
-    return formatResult(a - b, a + b)
+    return arrayOf(formatResult(a - b, a + b), formatResultIter(i))
 }
 
 class MainActivity : AppCompatActivity() {
@@ -50,9 +56,12 @@ class MainActivity : AppCompatActivity() {
             val tvResult: TextView = findViewById(R.id.tvResult)
             val etNumber: EditText = findViewById(R.id.etNumber)
             val num: Long = etNumber.text.toString().toLong()
-            tvResult.text = fermaFactors(num)
+            val tvResultIter: TextView = findViewById(R.id.tvResultIter)
 
-            Toast.makeText(this, "fuck", Toast.LENGTH_SHORT).show()
+            val res = fermaFactors(num)
+
+            tvResult.text = res[0]
+            tvResultIter.text = res[1]
         }
 //        button.setOnClickListener(object : OnClickListener() {
 //            fun onClick(v: View?) {
