@@ -55,3 +55,5 @@ class PerceptronClass {
 ![](./example3.png)
 
 ![](./example4.png)
+
+![](./example5.png)
